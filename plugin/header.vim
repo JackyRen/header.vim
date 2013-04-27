@@ -2,7 +2,7 @@
 " AUTHOR:   Agapo (fpmarias@google.com)
 " FILE:     /usr/share/vim/vim70/plugin/header.vim
 " CREATED:  21:06:35 05/10/2004
-" MODIFIED: 13:39:51 27/04/2013
+" MODIFIED: 15:37:03 27/04/2013
 " TITLE:    header.vim
 " VERSION:  0.1.3
 " SUMMARY:  When a new file is created a header is added on the top too.
@@ -44,6 +44,9 @@ elseif match (s:file , "\.h$") != -1
 elseif match (s:file, "\.vhdl$") != -1
 	let s:comment = "--"
 	let s:type = "-- VHDL FILE"
+elseif match (s:file , "\.tex$") != -1
+	let s:comment = "%"
+	let s:type = "% tex file"
   elseif match (s:file, "\.vim$") != -1
     let s:comment = "\""
     let s:type = s:comment . " Vim File"
