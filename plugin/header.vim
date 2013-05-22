@@ -2,7 +2,7 @@
 " AUTHOR:   Agapo (fpmarias@google.com)
 " FILE:     /usr/share/vim/vim70/plugin/header.vim
 " CREATED:  21:06:35 05/10/2004
-" MODIFIED: 22:41:18 22/05/2013
+" MODIFIED: 22:45:57 22/05/2013
 " TITLE:    header.vim
 " VERSION:  0.1.3
 " SUMMARY:  When a new file is created a header is added on the top too.
@@ -32,7 +32,7 @@ function s:filetype ()
 
   elseif match (s:file, "\.py$") != -1
     let s:comment = "#"
-    let s:type = s:comment . "!" . system ("whereis -b python | awk '{print $2}' | tr -d '\n'")
+    let s:type = s:comment . "!" . system ("whereis -b python2 | awk '{print $2}' | tr -d '\n'")
   elseif match (s:file, "\.pl$") != -1
     let s:comment = "#"
     let s:type = s:comment . "!" . system ("whereis -b perl | awk '{print $2}' | tr -d '\n'")
