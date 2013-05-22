@@ -2,7 +2,7 @@
 " AUTHOR:   Agapo (fpmarias@google.com)
 " FILE:     /usr/share/vim/vim70/plugin/header.vim
 " CREATED:  21:06:35 05/10/2004
-" MODIFIED: 19:31:11 22/05/2013
+" MODIFIED: 19:46:33 22/05/2013
 " TITLE:    header.vim
 " VERSION:  0.1.3
 " SUMMARY:  When a new file is created a header is added on the top too.
@@ -26,6 +26,10 @@ function s:filetype ()
   if match (s:file, "\.sh$") != -1
     let s:comment = "#"
     let s:type = s:comment . "!" . system ("whereis -b bash | awk '{print $2}' | tr -d '\n'")
+	elseif stridx (s:file, "\.") == -1
+    let s:comment = "#"
+    let s:type = s:comment . "!" . system ("whereis -b bash | awk '{print $2}' | tr -d '\n'")
+
   elseif match (s:file, "\.py$") != -1
     let s:comment = "#"
     let s:type = s:comment . "!" . system ("whereis -b python | awk '{print $2}' | tr -d '\n'")
@@ -34,7 +38,7 @@ function s:filetype ()
     let s:type = s:comment . "!" . system ("whereis -b perl | awk '{print $2}' | tr -d '\n'")
 	elseif match (s:file, "\.java$") != -1
     let s:comment = "///"
-    let s:type = s:comment . "!" . system ("whereis -b java | awk '{print $2}' | tr -d '\n'")
+    let s:type = "#" . "!" . system ("whereis -b java | awk '{print $2}' | tr -d '\n'")
 elseif match (s:file , "\.cpp$") != -1
 	let s:comment = "///"
 	let s:type = "/// Cplusplus File"
@@ -54,7 +58,7 @@ elseif match (s:file , "\.tex$") != -1
     let s:comment = "\""
     let s:type = s:comment . " Vim File"
   else
-    let s:comment = "#"
+    let s:comment = "?"
     let s:type = s:comment . " Text File"
   endif
   unlet s:file
@@ -74,6 +78,7 @@ function s:insert ()
 
   call s:filetype ()
 
+  if s:comment != "?"
   let s:author = s:comment . " AUTHOR:   " . system ("id -un | tr -d '\n'")
   let s:file = s:comment . " FILE:     " . expand("<afile>:p")
   let s:created = s:comment . " CREATED:  " . strftime ("%H:%M:%S %d/%m/%Y")
@@ -91,6 +96,7 @@ function s:insert ()
   unlet s:file
   unlet s:created
   unlet s:modified
+  endif
 
 endfunction
 
